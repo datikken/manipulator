@@ -1,15 +1,11 @@
 #include <Arduino.h>
 #include "Joystick/Joystick.h"
 #include "Axis/Axis.h"
+#include "AxisManipulator/AxisManipulator.h"
 
 Joystick joystick;
 Axis axis;
-
-void servoLoop() {
-  axis.setMaxLeft();
-  delay(1000);
-  axis.setMaxRight();
-}
+AxisManipulator manipulator(axis);   // joystick center ~512, dead zone +/-30
 
 void setup() {
   joystick.activateBtn();
@@ -18,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  joystick.debugPotentiomter();
-  // servoLoop();
-  delay(500); 
+  // one servo step per pass in the joystick's X direction
+  manipulator.update(joystick.getValX());
 }
+
