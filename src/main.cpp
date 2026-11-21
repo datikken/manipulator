@@ -13,8 +13,8 @@ AxisManipulator manipulatorX(axisX);   // joystick center ~512, dead zone +/-30
 AxisManipulator manipulatorY(axisY);
 
 void setup() {
-  joystick.activateBtn();
   Serial.begin(9600);
+  joystick.activateBtn();
   axisX.setPin(kPinServoX);
   axisY.setPin(kPinServoY);
 }
