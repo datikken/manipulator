@@ -5,6 +5,7 @@
 
 class Axis {
     Servo servo;
+    int pos = 0;
     public:
         void setPin(int pin);
         void setMaxLeft();

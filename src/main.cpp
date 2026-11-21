@@ -1,22 +1,24 @@
 #include <Arduino.h>
 #include "Joystick/Joystick.h"
+#include "Axis/Axis.h"
 
 Joystick joystick;
+Axis axis;
+
+void servoLoop() {
+  axis.setMaxLeft();
+  delay(1000);
+  axis.setMaxRight();
+}
 
 void setup() {
   joystick.activateBtn();
   Serial.begin(9600);
+  axis.setPin(9);
 }
 
 void loop() {
-  Serial.print("X:");
-  Serial.print(joystick.getValX());
-
-  Serial.print(" | Y:");
-  Serial.print(joystick.getValY());
-
-  Serial.print(" | Z: ");
-  Serial.println(joystick.getValZ());
-
-  delay(500); // пауза перед следующим считыванием данных
+  joystick.debugPotentiomter();
+  // servoLoop();
+  delay(500); 
 }

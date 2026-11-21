@@ -9,6 +9,7 @@ class Joystick {
 
 public:
     void activateBtn();
+    void debugPotentiomter();
     int getValX();
     int getValY();
     int getValZ();
