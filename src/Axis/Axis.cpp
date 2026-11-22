@@ -34,3 +34,8 @@ void Axis::rotateCounterClockwise(uint16_t stepDelayMs) {
     delay(stepDelayMs);
 }
 
+void Axis::setPos(int angle) {
+    pos = constrain(angle, kMin, kMax);
+    servo.write(pos);
+}
+

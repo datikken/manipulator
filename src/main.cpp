@@ -2,6 +2,7 @@
 #include "Joystick/Joystick.h"
 #include "Axis/Axis.h"
 #include "AxisManipulator/AxisManipulator.h"
+#include "PositionStore/PositionStore.h"
 
 constexpr uint8_t kPinServoX = 9;
 constexpr uint8_t kPinServoY = 8;
@@ -11,17 +12,21 @@ Axis axisX;
 Axis axisY;
 AxisManipulator manipulatorX(axisX);   // joystick center ~512, dead zone +/-30
 AxisManipulator manipulatorY(axisY);
+PositionStore positionStore(axisX, axisY);
 
 void setup() {
   Serial.begin(9600);
   joystick.activateBtn();
   axisX.setPin(kPinServoX);
   axisY.setPin(kPinServoY);
+  positionStore.restore();             // move servos to their saved positions
 }
 
 void loop() {
   // one servo step per pass, X servo on pin 9, Y servo on pin 8
   manipulatorX.update(joystick.getValX());
   manipulatorY.update(joystick.getValY());
+
+  positionStore.update();              // persist changes once motion stops
 }
 
